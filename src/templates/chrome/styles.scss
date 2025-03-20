@@ -1,0 +1,139 @@
+#pwa-install-element{
+    user-select: none;
+
+    .install-dialog{
+        --text-color-normal: #212121;
+        --background-color: #fff;
+        --border-bottom-color: #DBDCDE;
+        --scrollbar-background-color: #fff;
+
+        font-family: "Roboto", "Segoe UI", system-ui;
+
+        position: fixed;
+        display: inline-block;
+
+        opacity: 0;
+        visibility: hidden;
+
+        z-index: 2147483001;
+    }
+    .install-dialog.chrome{
+        max-width: 380px;
+        width: 90%;
+        min-height: 90px;
+        margin: 0 auto;
+        right: 150px;
+        left: auto;
+
+        background-color: var(--background-color);
+        filter: drop-shadow(0 5px 15px rgba(0,0,0,.3));
+
+        font-size: 15px;
+        color: var(--text-color-normal);
+        border-radius: 8px;
+
+        top: -100px;
+
+        transition: top .5s ease-in-out, opacity .8s ease-in-out, max-height 0.35s ease-in-out;
+
+
+        &.available {
+            opacity: 1;
+            top: 28px;
+            visibility: visible;
+        }
+
+        .dialog-body{
+            display: grid;
+
+            grid-template-columns: 70px 1fr;
+        }
+
+        &.gallery{
+            pwa-gallery{
+                transition: opacity .3s ease-in-out .2s, max-height .5s ease-in-out;
+
+                max-height: 70vh;
+                opacity: 1;
+            }
+        }
+    }
+
+
+    .install-dialog.mobile{
+        --touch-header-color: #DBDCE0;
+        top: 0px;
+
+        max-width: 414px;
+        width: 100%;
+
+        bottom: auto;
+        left: 0px;
+        right: 0px;
+
+        // transition: bottom .5s ease-in-out 1s, opacity 1.3s ease-in-out .8s, max-height 0.35s ease-in-out 0s;
+
+        transition: none;
+        transform: translateY(100vh);
+
+        border-radius: 0;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+
+        padding-bottom: 35px;
+
+        &.available {
+            --translateY: translateY(calc(100vh - 85px));
+
+            opacity: 1;
+            top: 0px;
+
+            visibility: visible;
+
+            transform: var(--translateY);
+        }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    #pwa-install-element .install-dialog{
+        --text-color-normal: #eee;
+        --background-color: #1e1e1e;
+        --border-bottom-color: #404140;
+        --scrollbar-background-color: #424242;
+
+        &.mobile{
+            --touch-header-color: #3f403f;
+        }
+    }
+}
+
+@media (max-width: (768px - 1px)) and (min-height: 495px) {
+    #pwa-install-element{
+        .install-dialog.chrome.mobile{
+            display: inline-block;
+        }
+        .install-dialog.chrome{
+            display: none;
+        }
+    }
+}
+@media (min-width: 768px), (max-height: 495px) {
+    #pwa-install-element{
+        .install-dialog.chrome.mobile{
+            display: none;
+        }
+        .install-dialog.chrome{
+            display: inline-block;
+        }
+    }
+}
+
+@media (max-height: 420px) {
+    #pwa-install-element{
+        .install-dialog.chrome .dialog-body .description{
+            -webkit-line-clamp: 3;
+            max-height: 70px;
+        }
+    }
+}
